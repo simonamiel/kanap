@@ -17,8 +17,8 @@ const addProduct = async () => {
     <a href="./product.html?id=42" class="items a">
         <article class="items article">
               <img src="${kanap.imageUrl}" alt="${kanap.altTxt}" class="items article img">
-              <h3 class="productName items article h3">${kanap.name}</h3>
-              <p class="productDescription items article p">${kanap.description}</p>
+              <h3 class="items article h3">${kanap.name}</h3>
+              <p class="items article p">${kanap.description}</p>
         </article>
     </a>
     `).join("");
