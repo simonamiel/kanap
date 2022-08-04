@@ -1,4 +1,4 @@
-let productData = [];
+let itemsData = [];
 
 /*Add array and data of API part 2*/
 const dataArray = async () => {
@@ -11,16 +11,16 @@ const dataArray = async () => {
 };
 
 /*Add products on home page part 3*/
-const addProduct = async () => {
+const addProducts = async () => {
     await dataArray();
     document.getElementById("items").innerHTML = kanapData.map((kanap) => `
     <a href="./product.html?${kanap._id}" class="items a">
-        <article class="items article">
-              <img src="${kanap.imageUrl}" alt="${kanap.altTxt}" class="items article img">
-              <h3 class="items article h3">${kanap.name}</h3>
-              <p class="items article p">${kanap.description}</p>
-        </article>
-    </a>
+            <article class="items article">
+              <img src="${kanap.imageUrl}" alt="${kanap.altTxt}">
+              <h3 class="productName">${kanap.name}</h3>
+              <p class="productDescription">${kanap.description}</p>
+            </article>
+          </a>
     `).join("");
 };
-addProduct ()
+addProducts ()
