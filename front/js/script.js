@@ -14,7 +14,7 @@ const dataArray = async () => {
 const addProduct = async () => {
     await dataArray();
     document.getElementById("items").innerHTML = kanapData.map((kanap) => `
-    <a href="./product.html?id=42" class="items a">
+    <a href="./product.html?${kanap._id}" class="items a">
         <article class="items article">
               <img src="${kanap.imageUrl}" alt="${kanap.altTxt}" class="items article img">
               <h3 class="items article h3">${kanap.name}</h3>
