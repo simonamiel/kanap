@@ -11,7 +11,7 @@ const dataArray = async () => {
 };
 
 /*Add products on home page part 3*/
-const addProducts = async () => {
+const addItems = async () => {
     await dataArray();
     document.getElementById("items").innerHTML = kanapData.map((kanap) => `
     <a href="./product.html?${kanap._id}" class="items a">
@@ -23,4 +23,4 @@ const addProducts = async () => {
           </a>
     `).join("");
 };
-addProducts ()
+addItems ()
