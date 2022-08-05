@@ -37,7 +37,7 @@ const addProduct = async () => {
 /*Selection of HTML's id="colors"*/
  let selectColors = document.getElementById("colors");
 
-/*Read the table for each color and create an option element in HTML*/
+/*Read the array for each color and create an option element in HTML*/
  productInfo.colors.forEach((colors) => {
     console.log(colors);
     let addColors = document.createElement("option");
