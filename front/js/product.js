@@ -54,3 +54,25 @@ const addProduct = async () => {
     
 };
 addProduct();
+
+/*verification that the color and the quantity is well informed before putting it in the basket*/
+const checkProduct = async () => {
+    document.getElementById("addToCart").addEventListener("click",function(eventColors){
+        var select = document.getElementById('colors');
+        var choice = select.selectedIndex;
+        var value =  select.options[choice].value;
+        if(value === ""){
+            alert("Veuillez choisir une couleur");
+    
+        }
+    
+    });
+    document.getElementById("addToCart").addEventListener("click",function(eventQuantity){
+        var productQuantity = document.getElementById("quantity").value;
+        if(productQuantity <= 0){
+            alert("Veuillez renseigner une quantité")
+        }
+        console.log(productQuantity);   
+    });
+};
+checkProduct();
