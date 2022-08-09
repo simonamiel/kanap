@@ -69,8 +69,8 @@ const checkProduct = async () => {
     });
     document.getElementById("addToCart").addEventListener("click",function(eventQuantity){
         var productQuantity = document.getElementById("quantity").value;
-        if(productQuantity <= 0){
-            alert("Veuillez renseigner une quantité")
+        if(productQuantity <= 0 || productQuantity > 100){
+            alert("Veuillez renseigner une quantité valide")
         }  
     });
 };
@@ -78,10 +78,38 @@ checkProduct();
 
 /*Transmission of items to the basket whith button "ajouter au panier"*/
 const addToCart = () => {
+
+    /*Add Id to button*/
     let button = productInfo._id;
     console.log(button);
+
+    /*Add event on button click*/
     document.getElementById("addToCart").addEventListener("click", () => {
-        let addToBasket = document.getElementById("colors");
-        console.log(addToBasket);
+
+        /*Get Array from localstorage*/
+        let productArray = JSON.parse(localStorage.getItem("product"))
+
+        /*Get color's and quantity's product info*/
+        let selectColor = document.getElementById("colors");
+        let selectQuantity = document.getElementById("quantity");
+        console.log(selectColor.value);
+        console.log(selectQuantity.value);
+        console.log(productArray);
+
+        /*Assign info of user selection to a const*/
+        const addSelectedInfo = Object.assign({}, productInfo, {
+            idProductSelection: `${button}`,
+            colorSelection: `${selectColor.value}`,
+            quantitySelection: `${selectQuantity.value}`,
+        });
+        console.log(addSelectedInfo);
+
+        /*Condition if Array of localstorage is empty, create array and push object as string (whith user selection)*/
+        if(productArray == null) {
+            productArray = [];
+            productArray.push(addSelectedInfo);
+            console.log(productArray);
+            localStorage.setItem("product", JSON.stringify(productArray));
+        }
     });
 };
