@@ -39,7 +39,7 @@ const addProduct = async () => {
 
 /*Read the array for each color and create an option element in HTML*/
  productInfo.colors.forEach((colors) => {
-    console.log(colors);
+    //console.log(colors);
     let addColors = document.createElement("option");
 
 /*Insertion of "value" and "HTML text" data in each option tag for each color*/
@@ -48,7 +48,7 @@ const addProduct = async () => {
 
 /*Indication that "addColors" is a child of "selectColors"*/
     selectColors.appendChild(addColors);
-    console.log(addColors);
+    //console.log(addColors);
 
  });
 addToCart(productInfo);    
@@ -78,38 +78,54 @@ checkProduct();
 
 /*Transmission of items to the basket whith button "ajouter au panier"*/
 const addToCart = () => {
-
-    /*Add Id to button*/
-    let button = productInfo._id;
-    console.log(button);
-
     /*Add event on button click*/
     document.getElementById("addToCart").addEventListener("click", () => {
 
         /*Get Array from localstorage*/
         let productArray = JSON.parse(localStorage.getItem("product"))
 
-        /*Get color's and quantity's product info*/
+        /*Get color's / quantity's / Id / product info*/
         let selectColor = document.getElementById("colors");
         let selectQuantity = document.getElementById("quantity");
+        let idKanap = productInfo._id;
+        console.log(idKanap);
         console.log(selectColor.value);
         console.log(selectQuantity.value);
         console.log(productArray);
 
         /*Assign info of user selection to a const*/
         const addSelectedInfo = Object.assign({}, productInfo, {
-            idProductSelection: `${button}`,
+            idProductSelection: `${idKanap}`,
             colorSelection: `${selectColor.value}`,
             quantitySelection: `${selectQuantity.value}`,
         });
-        console.log(addSelectedInfo);
+        //console.log(addSelectedInfo);
 
         /*Condition if Array of localstorage is empty, create array and push object as string (whith user selection)*/
         if(productArray == null) {
             productArray = [];
             productArray.push(addSelectedInfo);
-            console.log(productArray);
+            //console.log(productArray);
             localStorage.setItem("product", JSON.stringify(productArray));
         }
+        /*Condition if Array of localstorage have already products, */
+        else if (productArray != null) {
+            /*Loop for add product even if array have already products*/
+            for(let i = 0; i < productArray.length; i++) {
+                /*If the product selected is the same that already in the cart*/ 
+                if(productArray[i].idProductSelection == idKanap && 
+                    productArray[i].colorSelection == selectColor.value){
+                        //console.log("ajout quantité");
+                        productArray[i].quantitySelection = parseInt(productArray[i].quantitySelection) + 
+                        parseInt(addSelectedInfo.quantitySelection);
+                        localStorage.setItem("product", JSON.stringify(productArray)),
+                        //console.log("test");
+                    
+                }
+            }
+
+        }
     });
+/*Return in localstorage always the new product selected*/
+return (productArray = JSON.parse(localStorage.getItem("product")));
 };
