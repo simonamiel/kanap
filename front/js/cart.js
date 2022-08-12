@@ -3,11 +3,12 @@ let addkanap = JSON.parse(localStorage.getItem("product"));
 
 /*insertion of items in the shopping cart and display of information*/
 const addcart = async () => {
-    if(addkanap) {
-        await addkanap;
-        console.log(addkanap);
-        /*Add product informations to cart items list*/
-        document.getElementById("cart__items").innerHTML = addkanap.map((product) =>  `
+	if (addkanap) {
+		await addkanap;
+		//console.log(addkanap);
+		/*Add product informations to cart items list*/
+		document.getElementById("cart__items").innerHTML = addkanap.map(
+			(product) => `
         <article class="cart__item" data-id="${product._id}" data-color="${product.colorSelection}">
                 <div class="cart__item__img">
                   <img src="${product.imageUrl}" alt="${product.altTxt}">
@@ -29,17 +30,26 @@ const addcart = async () => {
                   </div>
                 </div>
               </article>
-        `)
-        /*Add the total price in function of number of pieces and unit price*/
-        document.getElementById("totalPrice").innerHTML = addkanap.map((product) => `
-        ${product.quantitySelection * product.price}
-        `)
-        /*Add the total of pieces in function of number of piece in cart*/
-        document.getElementById("totalQuantity").innerHTML = addkanap.map((product) => `
-        ${product.quantitySelection}
-        `);
-        return;
-    }
+        `
+		);
+	}
 };
 addcart();
 
+/*Add the total of pieces in function of number of piece in cart*/
+console.log(addkanap); //addKanap = Localstorage (see above)
+
+let kanapQuantityTotal = [];
+
+if (addkanap) {
+	addkanap.forEach((kanap) => {
+		kanapQuantityTotal.push(kanap.quantitySelection);
+		console.log(kanapQuantityTotal);
+	});
+	document.getElementById("totalQuantity").innerHTML = kanapQuantityTotal;
+	let totalkanap = (document.getElementById(
+		"totalQuantity"
+	).textContent = `${eval(kanapQuantityTotal.join("+"))}`);
+	console.log(totalkanap);
+}
+/*Add the total price in function of number of pieces and unit price*/
