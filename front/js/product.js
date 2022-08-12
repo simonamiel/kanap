@@ -118,12 +118,10 @@ const addToCart = () => {
                         //console.log("ajout quantité");
                         productArray[i].quantitySelection = parseInt(productArray[i].quantitySelection) + 
                         parseInt(addSelectedInfo.quantitySelection);
-                        localStorage.setItem("product", JSON.stringify(productArray)),
+                        localStorage.setItem("product", JSON.stringify(productArray))
                         //console.log("test");
-                    
-                }
+                    }
             }
-
         }
     });
 /*Return in localstorage always the new product selected*/
