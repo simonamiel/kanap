@@ -55,7 +55,7 @@ const addProduct = async () => {
 addProduct();
 
 /*verification that the color and the quantity is well informed before putting it in the basket*/
-const checkProduct = async () => {
+/*const checkProduct = async () => {
 	document
 		.getElementById("addToCart")
 		.addEventListener("click", function (eventColors) {
@@ -75,12 +75,20 @@ const checkProduct = async () => {
 			}
 		});
 };
-checkProduct();
+checkProduct();*/
 
 /*Transmission of items to the basket whith button "ajouter au panier"*/
 const addToCart = () => {
+    
 	/*Add event on button click*/
-	document.getElementById("addToCart").addEventListener("click", () => {
+	document.getElementById("addToCart").addEventListener("click", () => {  
+        var select = document.getElementById("colors");
+		var choice = select.selectedIndex;
+		var value = select.options[choice].value;
+        var productQuantity = document.getElementById("quantity").value;
+			if (value === "" || productQuantity <= 0 || productQuantity > 100) {
+                alert("Veuillez choisir une couleur et renseigner une quantité valide");
+			}else{
 		/*Get Array from localstorage*/
 		let productArray = JSON.parse(localStorage.getItem("product"));
 
@@ -143,7 +151,10 @@ const addToCart = () => {
 				}
 			}
 		}
-	});
+    };
 	/*Return in localstorage always the new product selected*/
 	return (productArray = JSON.parse(localStorage.getItem("product")));
-};
+}
+
+)};
+
