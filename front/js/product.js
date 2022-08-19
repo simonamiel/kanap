@@ -11,8 +11,16 @@ const productData = async () => {
 	await fetch(`http://localhost:3000/api/products/${getId}`)
 		.then((result) => result.json())
 		.then((data) => {
-			productInfo = data;
+            _id = data._id;
+            productUrl = data.imageUrl;
+            productAlt = data.altTxt;
+            productName = data.name;
+            productColors = data.colors;
+            productPrice = data.price;
+            productDescription = data.description;
+			productInfo = {_id, productUrl, productAlt, productName, productColors, productDescription};
 			console.log(productInfo);
+            console.log(data);
             })    
 };
 
@@ -21,16 +29,16 @@ const productData = async () => {
 async function addProduct() {
     await productData();
     document.querySelector(".item__img").innerHTML = `
-    <img src="${productInfo.imageUrl}" alt="${productInfo.altTxt}"/>
+    <img src="${productUrl}" alt="${productAlt}"/>
     `;
     document.getElementById("title").innerHTML = `
-    ${productInfo.name}
+    ${productName}
     `;
     document.getElementById("price").innerHTML = `
-    ${productInfo.price}
+    ${productPrice}
     `;
     document.getElementById("description").innerHTML = `
-    ${productInfo.description}
+    ${productDescription}
     `;
 
     /*Selection of color in color's field*/
@@ -38,7 +46,7 @@ async function addProduct() {
     let selectColors = document.getElementById("colors");
 
     /*Read the array for each color and create an option element in HTML*/
-    productInfo.colors.forEach((colors) => {
+    productInfo.productColors.forEach((colors) => {
         //console.log(colors);
         let addColors = document.createElement("option");
 

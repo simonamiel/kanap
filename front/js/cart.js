@@ -1,6 +1,8 @@
 /*Retrieve product informations from localstorage and product page*/
 let addkanap = JSON.parse(localStorage.getItem("product"));
 
+
+
 /*insertion of items in the shopping cart and display of information part 7*/
 const addcart = async () => {
 	if (addkanap) {
@@ -11,13 +13,13 @@ const addcart = async () => {
 			(product) => `
         <article class="cart__item" data-id="${product._id}" data-color="${product.colorSelection}">
                 <div class="cart__item__img">
-                  <img src="${product.imageUrl}" alt="${product.altTxt}">
+                  <img src="${product.productUrl}" alt="${product.productAlt}">
                 </div>
                 <div class="cart__item__content">
                   <div class="cart__item__content__description">
-                    <h2>${product.name}</h2>
+                    <h2>${product.productName}</h2>
                     <p>${product.colorSelection}</p>
-                    <p>${product.price} €</p>
+                    <p>${product.productPrice} €</p>
                   </div>
                   <div class="cart__item__content__settings">
                     <div class="cart__item__content__settings__quantity">
