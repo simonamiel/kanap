@@ -10,6 +10,7 @@ const dataArray = async () => {
 		});
 };
 
+
 /*Add products on home page part 3*/
 const addItems = async () => {
 	await dataArray();

@@ -1,17 +1,36 @@
 /*Retrieve product informations from localstorage and product page*/
 let addkanap = JSON.parse(localStorage.getItem("product"));
 
+/*Retrieve informations from API*/
+const productRetrieve = async () => {
+	await addkanap;
+	addkanap.map((idkanap) => {
+		console.log(idkanap._id);
 
-
+		let urlProduct = `http://localhost:3000/api/products/${idkanap._id}`;
+		console.log(urlProduct);
+            let addPriceInfo = fetch(urlProduct)
+			.then((result) => result.json())
+			.then((productPrice) => {
+				price = productPrice.price;
+				console.log(price);
+        idkanap.price = price;
+        console.log(addkanap);
+        
+			});
+	});
+};
 /*insertion of items in the shopping cart and display of information part 7*/
 const addcart = async () => {
 	if (addkanap) {
-		await addkanap;
-		//console.log(addkanap);
+    await productRetrieve();
+    await addkanap;
+		console.log(addkanap);
+    console.log(price);
 		/*Add product informations to cart items list*/
 		document.getElementById("cart__items").innerHTML = addkanap.map(
 			(product) => `
-        <article class="cart__item" data-id="${product._id}" data-color="${product.colorSelection}">
+        <article class="cart__item" data-id="${product.idProductSelection}" data-color="${product.colorSelection}">
                 <div class="cart__item__img">
                   <img src="${product.productUrl}" alt="${product.productAlt}">
                 </div>
@@ -19,7 +38,7 @@ const addcart = async () => {
                   <div class="cart__item__content__description">
                     <h2>${product.productName}</h2>
                     <p>${product.colorSelection}</p>
-                    <p>${product.productPrice} €</p>
+                    <p>${product.price} €</p>
                   </div>
                   <div class="cart__item__content__settings">
                     <div class="cart__item__content__settings__quantity">
@@ -34,12 +53,10 @@ const addcart = async () => {
               </article>
         `
 		);
-
 		//moreQuantity();
-        //lessQuantity();
-        //supprQuantity();
-        modifQty();
-       
+		//lessQuantity();
+		//supprQuantity();
+		//modifQty();
 	}
 };
 addcart();
@@ -77,13 +94,3 @@ if (addkanap) {
 
 /*=========================================================*/
 /*Modification of the more quantities in the basket part 9*/
-
-async function modifQty(isMore) {
-    let input = document.querySelectorAll(".itemQuantity");
-    if(isMore){
-        input.value++;
-    }else {
-        input.value--
-    }
-    console.log(input);
-}

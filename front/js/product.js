@@ -24,7 +24,6 @@ const productData = async () => {
             })    
 };
 
-
 /*insertion of product information according to the id */
 async function addProduct() {
     await productData();
