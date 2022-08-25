@@ -73,6 +73,7 @@ const addToCart = () => {
 			if (value === "" || productQuantity <= 0 || productQuantity > 100) {
                 alert("Veuillez choisir une couleur et renseigner une quantité valide");
 			}else{
+				alert("Vous venez d'ajouter un produit au panier");
 		/*Get Array from localstorage*/
 		let productArray = JSON.parse(localStorage.getItem("product"));
 

@@ -1,6 +1,5 @@
 /*Retrieve product informations from localstorage and product page*/
 let addkanap = JSON.parse(localStorage.getItem("product"));
-
 /*Retrieve informations from API*/
 const productRetrieve = async () => {
 	await addkanap;
@@ -16,19 +15,8 @@ const productRetrieve = async () => {
 				console.log(price);
         idkanap.price = price;
         console.log(addkanap);
-        
-			});
-	});
-};
-/*insertion of items in the shopping cart and display of information part 7*/
-const addcart = async () => {
-	if (addkanap) {
-    await productRetrieve();
-    await addkanap;
-		console.log(addkanap);
-    console.log(price);
-		/*Add product informations to cart items list*/
-		document.getElementById("cart__items").innerHTML = addkanap.map(
+        		/*Add product informations to cart items list*/
+		  document.getElementById("cart__items").innerHTML = addkanap.map(
 			(product) => `
         <article class="cart__item" data-id="${product.idProductSelection}" data-color="${product.colorSelection}">
                 <div class="cart__item__img">
@@ -53,13 +41,13 @@ const addcart = async () => {
               </article>
         `
 		);
-		//moreQuantity();
-		//lessQuantity();
-		//supprQuantity();
-		//modifQty();
-	}
+        modifQty();
+			});
+	});
+  
 };
-addcart();
+productRetrieve();
+
 
 /*Add the total of pieces in function of number of piece in cart part 8*/
 console.log(addkanap); //addKanap = Localstorage (see above)
@@ -93,4 +81,37 @@ if (addkanap) {
 }
 
 /*=========================================================*/
-/*Modification of the more quantities in the basket part 9*/
+/*Modification of the more or less quantities in the basket part 9*/
+const modifQty = async () => {
+await addkanap;
+console.log(addkanap);
+/*Selection of cart item to listen changements*/
+let changeQty = document.querySelectorAll(".cart__item");
+console.log(changeQty);
+/*For each modification of cart*/
+changeQty.forEach((itemChange) => {
+  /*Listen the changement of quantities*/
+  itemChange.addEventListener("change", (event) => {
+    for(let i = 0; i < addkanap.length; i++) {
+      /*Changement if product are the same then we change the quantity on addkanap*/
+      if(addkanap[i].idProductSelection == itemChange.dataset.id && addkanap[i].colorSelection == itemChange.dataset.color) {
+        addkanap[i].quantitySelection = `${event.target.value}`;
+        window.location.reload();
+          console.log(addkanap);
+          
+          console.log(addkanap); 
+        /*Verification that the quantities user selection is OK*/
+        if(addkanap[i].quantitySelection > 0 && addkanap[i].quantitySelection <= 100){
+            addkanap.forEach((removePrice => {
+              removePrice.price = "";
+              console.log(addkanap);
+        })),
+            localStorage.setItem("product", JSON.stringify(addkanap))
+        }else {
+          alert("Veuillez renseigner une quantité correcte (1 à 100)")
+        }
+      }
+    }
+  })
+})
+}
