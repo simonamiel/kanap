@@ -42,13 +42,14 @@ const productRetrieve = async () => {
         `
 		);
         modifQty();
+        totals ();
 			});
 	});
   
 };
 productRetrieve();
 
-
+const totals = async () => {
 /*Add the total of pieces in function of number of piece in cart part 8*/
 console.log(addkanap); //addKanap = Localstorage (see above)
 
@@ -79,7 +80,7 @@ if (addkanap) {
 	).textContent = `${eval(kanapPriceTotal.join("+"))}`);
 	console.log(totalkanapPrice);
 }
-
+}
 /*=========================================================*/
 /*Modification of the more or less quantities in the basket part 9*/
 const modifQty = async () => {
@@ -115,3 +116,5 @@ changeQty.forEach((itemChange) => {
   })
 })
 }
+/*=========================================================*/
+/*Remove product in cart whith "supprimer" button part 9*/
