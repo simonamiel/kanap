@@ -4,20 +4,21 @@ let addkanap = JSON.parse(localStorage.getItem("product"));
 const productRetrieve = async () => {
 	await addkanap;
 	addkanap.map((idkanap) => {
-		console.log(idkanap._id);
+		//console.log(idkanap._id);
 
 		let urlProduct = `http://localhost:3000/api/products/${idkanap._id}`;
-		console.log(urlProduct);
-            let addPriceInfo = fetch(urlProduct)
+		//console.log(urlProduct);
+		let addPriceInfo = fetch(urlProduct)
 			.then((result) => result.json())
 			.then((productPrice) => {
 				price = productPrice.price;
-				console.log(price);
-        idkanap.price = price;
-        console.log(addkanap);
-        		/*Add product informations to cart items list*/
-		  document.getElementById("cart__items").innerHTML = addkanap.map(
-			(product) => `
+				//console.log(price);
+				idkanap.price = price;
+				//console.log(addkanap);
+				/*Add product informations to cart items list*/
+				document.getElementById("cart__items").innerHTML = addkanap
+					.map(
+						(product) => `
         <article class="cart__item" data-id="${product.idProductSelection}" data-color="${product.colorSelection}">
                 <div class="cart__item__img">
                   <img src="${product.productUrl}" alt="${product.productAlt}">
@@ -40,81 +41,115 @@ const productRetrieve = async () => {
                 </div>
               </article>
         `
-		);
-        modifQty();
-        totals ();
+					)
+					.join("");
+
+				modifQty();
+				totals();
 			});
 	});
-  
 };
 productRetrieve();
 
-const totals = async () => {
+/*=========================================================*/
 /*Add the total of pieces in function of number of piece in cart part 8*/
-console.log(addkanap); //addKanap = Localstorage (see above)
+const totals = async () => {
+	//console.log(addkanap); //addKanap = Localstorage (see above)
 
-let kanapQuantityTotal = [];
+	let kanapQuantityTotal = [];
 
-if (addkanap) {
-	addkanap.forEach((kanap) => {
-		kanapQuantityTotal.push(kanap.quantitySelection);
-		console.log(kanapQuantityTotal);
-	});
-	document.getElementById("totalQuantity").innerHTML = kanapQuantityTotal;
-	let totalkanap = (document.getElementById(
-		"totalQuantity"
-	).textContent = `${eval(kanapQuantityTotal.join("+"))}`);
-	console.log(totalkanap);
-}
-/*Add the total price in function of number of pieces and unit price part 8*/
-let kanapPriceTotal = [];
+	if (addkanap) {
+		addkanap.forEach((kanap) => {
+			kanapQuantityTotal.push(kanap.quantitySelection);
+			//console.log(kanapQuantityTotal);
+		});
+		document.getElementById("totalQuantity").innerHTML = kanapQuantityTotal;
+		let totalkanap = (document.getElementById(
+			"totalQuantity"
+		).textContent = `${eval(kanapQuantityTotal.join("+"))}`);
+		//console.log(totalkanap);
+	}
+	/*Add the total price in function of number of pieces and unit price part 8*/
+	let kanapPriceTotal = [];
 
-if (addkanap) {
-	addkanap.forEach((kanap) => {
-		kanapPriceTotal.push(kanap.price * kanap.quantitySelection);
-		console.log(kanapPriceTotal);
-	});
-	document.getElementById("totalPrice").innerHTML = kanapPriceTotal;
-	let totalkanapPrice = (document.getElementById(
-		"totalPrice"
-	).textContent = `${eval(kanapPriceTotal.join("+"))}`);
-	console.log(totalkanapPrice);
-}
-}
+	if (addkanap) {
+		addkanap.forEach((kanap) => {
+			kanapPriceTotal.push(kanap.price * kanap.quantitySelection);
+			//console.log(kanapPriceTotal);
+		});
+		document.getElementById("totalPrice").innerHTML = kanapPriceTotal;
+		let totalkanapPrice = (document.getElementById(
+			"totalPrice"
+		).textContent = `${eval(kanapPriceTotal.join("+"))}`);
+		//console.log(totalkanapPrice);
+	}
+};
+
 /*=========================================================*/
 /*Modification of the more or less quantities in the basket part 9*/
 const modifQty = async () => {
-await addkanap;
-console.log(addkanap);
-/*Selection of cart item to listen changements*/
-let changeQty = document.querySelectorAll(".cart__item");
-console.log(changeQty);
-/*For each modification of cart*/
-changeQty.forEach((itemChange) => {
-  /*Listen the changement of quantities*/
-  itemChange.addEventListener("change", (event) => {
-    for(let i = 0; i < addkanap.length; i++) {
-      /*Changement if product are the same then we change the quantity on addkanap*/
-      if(addkanap[i].idProductSelection == itemChange.dataset.id && addkanap[i].colorSelection == itemChange.dataset.color) {
-        addkanap[i].quantitySelection = `${event.target.value}`;
-        window.location.reload();
-          console.log(addkanap);
-          
-          console.log(addkanap); 
-        /*Verification that the quantities user selection is OK*/
-        if(addkanap[i].quantitySelection > 0 && addkanap[i].quantitySelection <= 100){
-            addkanap.forEach((removePrice => {
-              removePrice.price = "";
-              console.log(addkanap);
-        })),
-            localStorage.setItem("product", JSON.stringify(addkanap))
-        }else {
-          alert("Veuillez renseigner une quantité correcte (1 à 100)")
-        }
-      }
-    }
-  })
-})
-}
+	await addkanap;
+	//console.log(addkanap);
+	const priceLess = addkanap.forEach((removePrice) => {
+		removePrice.price = addkanap.filter(
+			(filterPrice) => typeof filterPrice === `number`
+		);
+	});
+	//console.log(addkanap);
+
+	/*Selection of cart item to listen changements*/
+	let changeQty = document.querySelectorAll(".cart__item");
+	//console.log(changeQty);
+	/*For each modification of cart*/
+	changeQty.forEach((itemChange) => {
+		/*Listen the changement of quantities*/
+		itemChange.addEventListener("change", (event) => {
+			for (let i = 0; i < addkanap.length; i++) {
+				/*Changement if product are the same then we change the quantity on addkanap*/
+				if (
+					addkanap[i].idProductSelection == itemChange.dataset.id &&
+					addkanap[i].colorSelection == itemChange.dataset.color
+				) {
+					addkanap[i].quantitySelection = `${event.target.value}`;
+					/*Reload page for update info total quantity and price*/
+					window.location.reload();
+					//console.log(addkanap);
+
+					/*Verification that the quantities user selection is OK*/
+					if (
+						addkanap[i].quantitySelection > 0 &&
+						addkanap[i].quantitySelection <= 100
+					) {
+						localStorage.setItem("product", JSON.stringify(addkanap));
+					} else {
+						alert("Veuillez renseigner une quantité correcte (1 à 100)");
+					}
+				}
+			}
+		});
+	});
+};
+
 /*=========================================================*/
 /*Remove product in cart whith "supprimer" button part 9*/
+const removeProduct = async () => {
+	await addkanap;
+  await productRetrieve();
+	console.log("remove");
+
+let removeItem = document.querySelectorAll(".cart__item");
+let removeKanap = document.querySelectorAll(".deleteItem");
+console.log(removeItem);
+console.log(removeKanap);
+console.log(addkanap);
+
+  addkanap.map((removeAction) => {
+  addEventListener("click", (removeKanap) => {
+    console.log("tedt");
+    removeAction._id = addkanap._id;
+    console.log(removeAction);
+  })
+
+})
+};
+removeProduct();
