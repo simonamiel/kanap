@@ -1,3 +1,5 @@
+/*Create an empty array to remove product (see below section removeProduct)*/
+let sumOfProduct = []
 /*Retrieve product informations from localstorage and product page*/
 let addkanap = JSON.parse(localStorage.getItem("product"));
 /*Retrieve informations from API*/
@@ -143,12 +145,37 @@ const removeProduct = async (productRetrieve) => {
   await productRetrieve;
 	console.log("remove");
 
+  /*Selection of HTML parts for remove operation*/
 	let removeItem = document.querySelectorAll(".cart__item");
 	let removeKanap = document.querySelectorAll(".deleteItem");
 	console.log(removeItem);
 	console.log(removeKanap);
+  /*Remove opération in function of click button "supprimer"*/
+  removeKanap.forEach((removeSet) => {
+    removeSet.addEventListener("click", () => {
+    console.log(removeSet.closest('.cart__item'));
+    removeData = removeSet.closest('.cart__item');
 
+    let totalAddKanapRemove = addkanap.length;
 
-	
+    if(totalAddKanapRemove == 1) {
+      return (localStorage.removeItem("product"),
+      console.log("removeAll")),
+      window.location.reload()
+    }else{
+      sumOfProduct = addkanap.filter(element => {
+        if(removeData.dataset.id != element._id || removeData.dataset.color != element.colorSelection) {
+          return true
+        }
+      });
+      console.log(sumOfProduct);
+      localStorage.setItem("product", JSON.stringify(sumOfProduct));
+      console.log("remove product selection");
+      window.location.reload();
+    };
+      
+    });
+  });
+  return;
 };
 
