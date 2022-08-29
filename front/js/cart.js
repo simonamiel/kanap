@@ -44,8 +44,9 @@ const productRetrieve = async () => {
 					)
 					.join("");
 
-				modifQty();
 				totals();
+				modifQty();
+        removeProduct();
 			});
 	});
 };
@@ -53,7 +54,8 @@ productRetrieve();
 
 /*=========================================================*/
 /*Add the total of pieces in function of number of piece in cart part 8*/
-const totals = async () => {
+const totals = async (productRetrieve) => {
+  await productRetrieve;
 	//console.log(addkanap); //addKanap = Localstorage (see above)
 
 	let kanapQuantityTotal = [];
@@ -87,14 +89,11 @@ const totals = async () => {
 
 /*=========================================================*/
 /*Modification of the more or less quantities in the basket part 9*/
-const modifQty = async () => {
+const modifQty = async (productRetrieve) => {
 	await addkanap;
+	await productRetrieve;
 	//console.log(addkanap);
-	const priceLess = addkanap.forEach((removePrice) => {
-		removePrice.price = addkanap.filter(
-			(filterPrice) => typeof filterPrice === `number`
-		);
-	});
+
 	//console.log(addkanap);
 
 	/*Selection of cart item to listen changements*/
@@ -120,6 +119,13 @@ const modifQty = async () => {
 						addkanap[i].quantitySelection > 0 &&
 						addkanap[i].quantitySelection <= 100
 					) {
+            /*Remove price of addKanap before send to Localstorage*/
+						const priceLess = addkanap.forEach((removePrice) => {
+							removePrice.price = addkanap.filter(
+								(filterPrice) => typeof filterPrice === `number`
+							);
+						});
+            /*Send addKanap to localstorage*/
 						localStorage.setItem("product", JSON.stringify(addkanap));
 					} else {
 						alert("Veuillez renseigner une quantité correcte (1 à 100)");
@@ -132,24 +138,17 @@ const modifQty = async () => {
 
 /*=========================================================*/
 /*Remove product in cart whith "supprimer" button part 9*/
-const removeProduct = async () => {
+const removeProduct = async (productRetrieve) => {
 	await addkanap;
-  await productRetrieve();
+  await productRetrieve;
 	console.log("remove");
 
-let removeItem = document.querySelectorAll(".cart__item");
-let removeKanap = document.querySelectorAll(".deleteItem");
-console.log(removeItem);
-console.log(removeKanap);
-console.log(addkanap);
+	let removeItem = document.querySelectorAll(".cart__item");
+	let removeKanap = document.querySelectorAll(".deleteItem");
+	console.log(removeItem);
+	console.log(removeKanap);
 
-  addkanap.map((removeAction) => {
-  addEventListener("click", (removeKanap) => {
-    console.log("tedt");
-    removeAction._id = addkanap._id;
-    console.log(removeAction);
-  })
 
-})
+	
 };
-removeProduct();
+
