@@ -191,6 +191,7 @@ const lastName = document.getElementById("lastName");
 const address = document.getElementById("address");
 const city = document.getElementById("city");
 const email = document.getElementById("email");
+const submitOrder = document.querySelector(".cart__order__form")
 
 /*Variables contains user's value written*/
 let valueFirstName, valueLastName, valueAdress, valueCity, valueEmail;
@@ -342,4 +343,59 @@ email.addEventListener("input", (val) => {
     emailErrorMsg.innerHTML = "Email invalide. Exemple : monadresse@mail.fr";
     valueEmail = null;
   }
-})
+});
+/*===========================================================*/
+/*Control submit form and sending data for order*/
+/*===========================================================*/
+submitOrder.addEventListener("submit", (valdata) => {
+  /*Stop the submit button for waitting data to send*/
+  valdata.preventDefault();
+  console.log("waitting");
+  /*Condition if the form is correct whith a correct value*/
+  if(valueFirstName && valueLastName && valueAdress && valueCity && valueEmail != null) {
+    console.log("send");
+    /*retrive products user's selection*/
+    const orderData = JSON.parse(localStorage.getItem("product"));
+
+    /*Create an array empty to set the products information of the order*/
+    let orderId = [];
+    console.log(orderData);
+    console.log(orderId);
+
+    /*Get the id of product on cart and push to orderId*/
+    orderData.forEach((order) => {
+      orderId.push(order._id)
+    });
+
+    /*Create un object for user's informations from form*/
+    const userData = {
+      contactUserData:{
+        firstName : valueFirstName,
+        lastName : valueLastName,
+        address : valueAdress,
+        city : valueCity,
+        email : valueEmail,
+    },
+      productsId: orderId,
+  };
+    //console.log(orderId);
+    console.log(userData);
+
+    /*===========================================================*/
+    /*Add a fetch request whith type = POST fot the API */
+    /*===========================================================*/
+    fetch(`http://localhost:3000/api/products/order`, {
+      method: "POST",
+      headers: {'Content-Type': 'application/json;charset=utf-8'},
+      body: JSON.stringify(userData)
+    }).then((response) => response.json())
+      .then(result => {
+        let answerServer = result;
+        console.log(answerServer);
+
+      })
+    ;
+
+
+  } 
+});
