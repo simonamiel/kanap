@@ -291,3 +291,55 @@ address.addEventListener("input", (val) => {
     console.log("caractères spéciaux");
   }
 });
+/*===========================================================*/
+/*city control form*/
+/*===========================================================*/
+city.addEventListener("input", (val) => {
+  valueCity;
+  /*If de input value is empty*/
+  if(val.target.value.length == 0) {
+    console.log("vide");
+    cityErrorMsg.innerHTML = "";
+    valueCity = null;
+    console.log(valueCity);
+  /*Control of number of characters in accordance with Regex below*/
+  }else if (val.target.value.length < 3 || val.target.value.length > 25){
+    cityErrorMsg.innerHTML = "Ce champ doit contenir entre 3 et 25 caratères";
+    valueCity = null;
+    console.log("nb de caractère non conforme");
+
+  }
+  /*Regex to control the good user's value and set "success"*/ 
+  if (val.target.value.match(/^[a-z A-Z]{3,25}$/)) {
+    cityErrorMsg.innerHTML = "";
+    valueCity = val.target.value;
+    console.log("success");
+    console.log(valueCity);
+  }
+  /*Condition for exclude special characters != Regex*/
+  if (!val.target.value.match(/^[a-z A-Z]{3,25}$/) && val.target.value.length > 3 && val.target.value.length < 25) {
+    cityErrorMsg.innerHTML = "Ce champ ne doit pas contenir de caractères spéciaux, de chiffres ou de ponctuations";
+    valueCity = null;
+    console.log("caractères spéciaux");
+  }
+});
+/*===========================================================*/
+/*email control form*/
+/*===========================================================*/
+email.addEventListener("input", (val) => {
+  if(val.target.value.length == 0){
+    emailErrorMsg.innerHTML = "";
+    valueEmail = null;
+    console.log(valueEmail);
+    console.log(emailErrorMsg);
+  }
+  else if (val.target.value.match(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/)) {
+    emailErrorMsg.innerHTML = "";
+    valueEmail = val.target.value;
+    console.log(valueEmail);
+  }
+  if(!val.target.value.match(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/) && !val.target.value.length == 0){
+    emailErrorMsg.innerHTML = "Email invalide. Exemple : monadresse@mail.fr";
+    valueEmail = null;
+  }
+})
