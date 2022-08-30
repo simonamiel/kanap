@@ -161,7 +161,8 @@ const removeProduct = async (productRetrieve) => {
     if(totalAddKanapRemove == 1) {
       return (localStorage.removeItem("product"),
       console.log("removeAll")),
-      window.location.reload()
+      alert("Votre panier est vide !"),
+      location.href = "index.html"
     }else{
       sumOfProduct = addkanap.filter(element => {
         if(removeData.dataset.id != element._id || removeData.dataset.color != element.colorSelection) {
@@ -171,7 +172,8 @@ const removeProduct = async (productRetrieve) => {
       console.log(sumOfProduct);
       localStorage.setItem("product", JSON.stringify(sumOfProduct));
       console.log("remove product selection");
-      window.location.reload();
+      alert("Produit supprimé"),
+      location.href = "cart.html";
     };
       
     });
@@ -179,3 +181,113 @@ const removeProduct = async (productRetrieve) => {
   return;
 };
 
+/*=========================================================*/
+/*place the order : form validation and send data part 10*/
+/*=========================================================*/
+
+/*Retrieve form elements to control*/
+const firstName = document.getElementById("firstName");
+const lastName = document.getElementById("lastName");
+const address = document.getElementById("address");
+const city = document.getElementById("city");
+const email = document.getElementById("email");
+
+/*Variables contains user's value written*/
+let valueFirstName, valueLastName, valueAdress, valueCity, valueEmail;
+
+/*===========================================================*/
+/*FirstName control form*/
+/*===========================================================*/
+firstName.addEventListener("input", (val) => {
+  valueFirstName;
+  /*If de input value is empty*/
+  if(val.target.value.length == 0) {
+    console.log("vide");
+    firstNameErrorMsg.innerHTML = "";
+    valueFirstName = null;
+    console.log(valueFirstName);
+  /*Control of number of characters in accordance with Regex below*/
+  }else if (val.target.value.length < 3 || val.target.value.length > 25){
+    firstNameErrorMsg.innerHTML = "Ce champ doit contenir entre 3 et 25 caratères";
+    valueFirstName = null;
+    console.log("nb de caractère non conforme");
+
+  }
+  /*Regex to control the good user's value and set "success"*/ 
+  if (val.target.value.match(/^[a-z A-Z]{3,25}$/)) {
+    firstNameErrorMsg.innerHTML = "";
+    valueFirstName = val.target.value;
+    console.log("success");
+    console.log(valueFirstName);
+  }
+  /*Condition for exclude special characters != Regex*/
+  if (!val.target.value.match(/^[a-z A-Z]{3,25}$/) && val.target.value.length > 3 && val.target.value.length < 25) {
+    firstNameErrorMsg.innerHTML = "Ce champ ne doit pas contenir de caractères spéciaux, de chiffres ou de ponctuations";
+    valueFirstName = null;
+    console.log("caractères spéciaux");
+  }
+});
+/*===========================================================*/
+/*lastName control form*/
+/*===========================================================*/
+lastName.addEventListener("input", (val) => {
+  valueLastName;
+  /*If de input value is empty*/
+  if(val.target.value.length == 0) {
+    console.log("vide");
+    lastNameErrorMsg.innerHTML = "";
+    valueLastName = null;
+    console.log(valueLastName);
+  /*Control of number of characters in accordance with Regex below*/
+  }else if (val.target.value.length < 3 || val.target.value.length > 25){
+    lastNameErrorMsg.innerHTML = "Ce champ doit contenir entre 3 et 25 caratères";
+    valueLastName = null;
+    console.log("nb de caractère non conforme");
+
+  }
+  /*Regex to control the good user's value and set "success"*/ 
+  if (val.target.value.match(/^[a-z A-Z]{3,25}$/)) {
+    lastNameErrorMsg.innerHTML = "";
+    valueLastName = val.target.value;
+    console.log("success");
+    console.log(valueLastName);
+  }
+  /*Condition for exclude special characters != Regex*/
+  if (!val.target.value.match(/^[a-z A-Z]{3,25}$/) && val.target.value.length > 3 && val.target.value.length < 25) {
+    lastNameErrorMsg.innerHTML = "Ce champ ne doit pas contenir de caractères spéciaux, de chiffres ou de ponctuations";
+    valueLastName = null;
+    console.log("caractères spéciaux");
+  }
+});
+/*===========================================================*/
+/*Adress control form*/
+/*===========================================================*/
+address.addEventListener("input", (val) => {
+  valueAdress;
+  /*If de input value is empty*/
+  if(val.target.value.length == 0) {
+    console.log("vide");
+    addressErrorMsg.innerHTML = "";
+    valueAdress = null;
+    console.log(valueAdress);
+  /*Control of number of characters in accordance with Regex below*/
+  }else if (val.target.value.length < 3 || val.target.value.length > 35){
+    addressErrorMsg.innerHTML = "Ce champ doit contenir entre 3 et 35 caratères";
+    valueAdress = null;
+    console.log("nb de caractère non conforme");
+
+  }
+  /*Regex to control the good user's value and set "success"*/ 
+  if (val.target.value.match(/^[0-9]{1,3} [a-z A-Z]{3,25}$/)) {
+    addressErrorMsg.innerHTML = "";
+    valueAdress = val.target.value;
+    console.log("success");
+    console.log(valueAdress);
+  }
+  /*Condition for exclude special characters != Regex*/
+  if (!val.target.value.match(/^[0-9]{1,3} [a-z A-Z]{3,25}$/) && val.target.value.length > 3 && val.target.value.length < 35) {
+    addressErrorMsg.innerHTML = "Exemple : 345 rue de la Paix. Ce champ ne doit pas contenir de caractères spéciaux ou de ponctuations";
+    valueAdress = null;
+    console.log("caractères spéciaux");
+  }
+});
