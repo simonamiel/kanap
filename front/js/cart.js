@@ -358,27 +358,27 @@ submitOrder.addEventListener("submit", (valdata) => {
     const orderData = JSON.parse(localStorage.getItem("product"));
 
     /*Create an array empty to set the products information of the order*/
-    let orderId = [];
+    let products = [];
     console.log(orderData);
-    console.log(orderId);
+    console.log(products);
 
-    /*Get the id of product on cart and push to orderId*/
+    /*Get the id of product on cart and push to products*/
     orderData.forEach((order) => {
-      orderId.push(order._id)
+      products.push(order._id)
     });
 
     /*Create un object for user's informations from form*/
     const userData = {
-      contactUserData:{
+      contact:{
         firstName : valueFirstName,
         lastName : valueLastName,
         address : valueAdress,
         city : valueCity,
         email : valueEmail,
     },
-      productsId: orderId,
+      products: products,
   };
-    //console.log(orderId);
+    //console.log(products);
     console.log(userData);
 
     /*===========================================================*/
