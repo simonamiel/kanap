@@ -152,17 +152,17 @@ const modifQty = async (productRetrieve) => {
 const removeProduct = async (productRetrieve) => {
 	await addkanap;
 	await productRetrieve;
-	console.log("remove");
+	//console.log("remove");
 
 	/*Selection of HTML parts for remove operation*/
 	let removeItem = document.querySelectorAll(".cart__item");
 	let removeKanap = document.querySelectorAll(".deleteItem");
-	console.log(removeItem);
-	console.log(removeKanap);
+	//console.log(removeItem);
+	//console.log(removeKanap);
 	/*Remove opération in function of click button "supprimer"*/
 	removeKanap.forEach((removeSet) => {
 		removeSet.addEventListener("click", () => {
-			console.log(removeSet.closest(".cart__item"));
+			//console.log(removeSet.closest(".cart__item"));
 			removeData = removeSet.closest(".cart__item");
 
 			let totalAddKanapRemove = addkanap.length;
@@ -182,9 +182,9 @@ const removeProduct = async (productRetrieve) => {
 						return true;
 					}
 				});
-				console.log(sumOfProduct);
+				//console.log(sumOfProduct);
 				localStorage.setItem("product", JSON.stringify(sumOfProduct));
-				console.log("remove product selection");
+				//console.log("remove product selection");
 				alert("Produit supprimé"), (location.href = "cart.html");
 			}
 		});
@@ -214,23 +214,23 @@ firstName.addEventListener("input", (val) => {
 	valueFirstName;
 	/*If de input value is empty*/
 	if (val.target.value.length == 0) {
-		console.log("vide");
+		//console.log("vide");
 		firstNameErrorMsg.innerHTML = "";
 		valueFirstName = null;
-		console.log(valueFirstName);
+		//console.log(valueFirstName);
 		/*Control of number of characters in accordance with Regex below*/
 	} else if (val.target.value.length < 3 || val.target.value.length > 25) {
 		firstNameErrorMsg.innerHTML =
 			"Ce champ doit contenir entre 3 et 25 caratères";
 		valueFirstName = null;
-		console.log("nb de caractère non conforme");
+		//console.log("nb de caractère non conforme");
 	}
 	/*Regex to control the good user's value and set "success"*/
 	if (val.target.value.match(/^[a-z A-Z]{3,25}$/)) {
 		firstNameErrorMsg.innerHTML = "";
 		valueFirstName = val.target.value;
-		console.log("success");
-		console.log(valueFirstName);
+		//console.log("success");
+		//console.log(valueFirstName);
 	}
 	/*Condition for exclude special characters != Regex*/
 	if (
@@ -241,7 +241,7 @@ firstName.addEventListener("input", (val) => {
 		firstNameErrorMsg.innerHTML =
 			"Ce champ ne doit pas contenir de caractères spéciaux, de chiffres ou de ponctuations";
 		valueFirstName = null;
-		console.log("caractères spéciaux");
+		//console.log("caractères spéciaux");
 	}
 });
 /*===========================================================*/
@@ -251,23 +251,23 @@ lastName.addEventListener("input", (val) => {
 	valueLastName;
 	/*If de input value is empty*/
 	if (val.target.value.length == 0) {
-		console.log("vide");
+		//console.log("vide");
 		lastNameErrorMsg.innerHTML = "";
 		valueLastName = null;
-		console.log(valueLastName);
+		//console.log(valueLastName);
 		/*Control of number of characters in accordance with Regex below*/
 	} else if (val.target.value.length < 3 || val.target.value.length > 25) {
 		lastNameErrorMsg.innerHTML =
 			"Ce champ doit contenir entre 3 et 25 caratères";
 		valueLastName = null;
-		console.log("nb de caractère non conforme");
+		//console.log("nb de caractère non conforme");
 	}
 	/*Regex to control the good user's value and set "success"*/
 	if (val.target.value.match(/^[a-z A-Z]{3,25}$/)) {
 		lastNameErrorMsg.innerHTML = "";
 		valueLastName = val.target.value;
-		console.log("success");
-		console.log(valueLastName);
+		//console.log("success");
+		//console.log(valueLastName);
 	}
 	/*Condition for exclude special characters != Regex*/
 	if (
@@ -278,7 +278,7 @@ lastName.addEventListener("input", (val) => {
 		lastNameErrorMsg.innerHTML =
 			"Ce champ ne doit pas contenir de caractères spéciaux, de chiffres ou de ponctuations";
 		valueLastName = null;
-		console.log("caractères spéciaux");
+		//console.log("caractères spéciaux");
 	}
 });
 /*===========================================================*/
@@ -288,23 +288,23 @@ address.addEventListener("input", (val) => {
 	valueAdress;
 	/*If de input value is empty*/
 	if (val.target.value.length == 0) {
-		console.log("vide");
+		//console.log("vide");
 		addressErrorMsg.innerHTML = "";
 		valueAdress = null;
-		console.log(valueAdress);
+		//console.log(valueAdress);
 		/*Control of number of characters in accordance with Regex below*/
 	} else if (val.target.value.length < 3 || val.target.value.length > 35) {
 		addressErrorMsg.innerHTML =
 			"Ce champ doit contenir entre 3 et 35 caratères";
 		valueAdress = null;
-		console.log("nb de caractère non conforme");
+		//console.log("nb de caractère non conforme");
 	}
 	/*Regex to control the good user's value and set "success"*/
 	if (val.target.value.match(/^[0-9]{1,3} [a-z A-Z]{3,25}$/)) {
 		addressErrorMsg.innerHTML = "";
 		valueAdress = val.target.value;
-		console.log("success");
-		console.log(valueAdress);
+		//console.log("success");
+		//console.log(valueAdress);
 	}
 	/*Condition for exclude special characters != Regex*/
 	if (
@@ -315,7 +315,7 @@ address.addEventListener("input", (val) => {
 		addressErrorMsg.innerHTML =
 			"Exemple : 345 rue de la Paix. Ce champ ne doit pas contenir de caractères spéciaux ou de ponctuations";
 		valueAdress = null;
-		console.log("caractères spéciaux");
+		//console.log("caractères spéciaux");
 	}
 });
 /*===========================================================*/
@@ -325,22 +325,22 @@ city.addEventListener("input", (val) => {
 	valueCity;
 	/*If de input value is empty*/
 	if (val.target.value.length == 0) {
-		console.log("vide");
+		//console.log("vide");
 		cityErrorMsg.innerHTML = "";
 		valueCity = null;
-		console.log(valueCity);
+		//console.log(valueCity);
 		/*Control of number of characters in accordance with Regex below*/
 	} else if (val.target.value.length < 3 || val.target.value.length > 25) {
 		cityErrorMsg.innerHTML = "Ce champ doit contenir entre 3 et 25 caratères";
 		valueCity = null;
-		console.log("nb de caractère non conforme");
+		//console.log("nb de caractère non conforme");
 	}
 	/*Regex to control the good user's value and set "success"*/
 	if (val.target.value.match(/^[a-z A-Z]{3,25}$/)) {
 		cityErrorMsg.innerHTML = "";
 		valueCity = val.target.value;
-		console.log("success");
-		console.log(valueCity);
+		//console.log("success");
+		//console.log(valueCity);
 	}
 	/*Condition for exclude special characters != Regex*/
 	if (
@@ -351,7 +351,7 @@ city.addEventListener("input", (val) => {
 		cityErrorMsg.innerHTML =
 			"Ce champ ne doit pas contenir de caractères spéciaux, de chiffres ou de ponctuations";
 		valueCity = null;
-		console.log("caractères spéciaux");
+		////console.log("caractères spéciaux");
 	}
 });
 /*===========================================================*/
@@ -361,12 +361,12 @@ email.addEventListener("input", (val) => {
 	if (val.target.value.length == 0) {
 		emailErrorMsg.innerHTML = "";
 		valueEmail = null;
-		console.log(valueEmail);
-		console.log(emailErrorMsg);
+		//console.log(valueEmail);
+		//console.log(emailErrorMsg);
 	} else if (val.target.value.match(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/)) {
 		emailErrorMsg.innerHTML = "";
 		valueEmail = val.target.value;
-		console.log(valueEmail);
+		//console.log(valueEmail);
 	}
 	if (
 		!val.target.value.match(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/) &&
@@ -382,7 +382,7 @@ email.addEventListener("input", (val) => {
 submitOrder.addEventListener("submit", (valdata) => {
 	/*Stop the submit button for waitting data to send*/
 	valdata.preventDefault();
-	console.log("waitting");
+	//console.log("waitting");
 	/*Condition if the form is correct whith a correct value*/
 	if (
 		valueFirstName &&
@@ -391,14 +391,14 @@ submitOrder.addEventListener("submit", (valdata) => {
 		valueCity &&
 		valueEmail != null
 	) {
-		console.log("send");
+		//console.log("send");
 		/*retrive orderId user's selection*/
 		const orderData = JSON.parse(localStorage.getItem("product"));
 
 		/*Create an array empty to set the orderId information of the order*/
 		let orderId = [];
-		console.log(orderData);
-		console.log(orderId);
+		//console.log(orderData);
+		//console.log(orderId);
 
 		/*Get the id of product on cart and push to orderId*/
 		orderData.forEach((order) => {
@@ -417,7 +417,7 @@ submitOrder.addEventListener("submit", (valdata) => {
 			products: orderId,
 		};
 		//console.log(products);
-		console.log(userData);
+		//console.log(userData);
 
 		/*===========================================================*/
 		/*Add a fetch request whith type = POST fot the API */
@@ -430,8 +430,11 @@ submitOrder.addEventListener("submit", (valdata) => {
 			.then((response) => response.json())
 			.then((result) => {
 				let answerServer = result;
-				console.log(answerServer);
+				//console.log(answerServer);
         location.href = `confirmation.html?orderId=${answerServer.orderId}`;
-			});
+			})
+      .catch((error) => {
+			alert("Le serveur ne répond pas veuillez réessayer ultérieurement")
+		});
 	}
 });
