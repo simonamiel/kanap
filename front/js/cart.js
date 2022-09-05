@@ -3,7 +3,10 @@ let sumOfProduct = [];
 
 /*Retrieve product informations from localstorage and product page*/
 let addkanap = JSON.parse(localStorage.getItem("product"));
+
+/*=========================================================*/
 /*Retrieve informations from API*/
+/*=========================================================*/
 const productRetrieve = async () => {
 	await addkanap;
 	addkanap.map((idkanap) => {
@@ -46,17 +49,20 @@ const productRetrieve = async () => {
         `
 					)
 					.join("");
-
 				totals();
 				modifQty();
 				removeProduct();
-			});
+			})
+      .catch((error) => {
+			alert("Le serveur ne répond pas veuillez réessayer ultérieurement")
+		});;
 	});
 };
 productRetrieve();
 
 /*=========================================================*/
-/*Add the total of pieces in function of number of piece in cart part 8*/
+/*Add the total of pieces and price in function of number of piece in cart part 8*/
+/*=========================================================*/
 const totals = async (productRetrieve) => {
 	await productRetrieve;
 	//console.log(addkanap); //addKanap = Localstorage (see above)
@@ -92,6 +98,7 @@ const totals = async (productRetrieve) => {
 
 /*=========================================================*/
 /*Modification of the more or less quantities in the basket part 9*/
+/*=========================================================*/
 const modifQty = async (productRetrieve) => {
 	await addkanap;
 	await productRetrieve;
@@ -141,6 +148,7 @@ const modifQty = async (productRetrieve) => {
 
 /*=========================================================*/
 /*Remove product in cart whith "supprimer" button part 9*/
+/*=========================================================*/
 const removeProduct = async (productRetrieve) => {
 	await addkanap;
 	await productRetrieve;

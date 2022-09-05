@@ -1,17 +1,23 @@
 let itemsData = [];
 
+/*===========================================================*/
 /*Add array and data of API part 2*/
+/*===========================================================*/
 const dataArray = async () => {
 	await fetch("http://localhost:3000/api/products")
 		.then((result) => result.json())
 		.then((data) => {
 			kanapData = data;
-			console.log(kanapData);
+			//console.log(kanapData);
+		})
+		.catch((error) => {
+			alert("Le serveur ne répond pas veuillez réessayer ultérieurement")
 		});
 };
 
-
+/*===========================================================*/
 /*Add products on home page part 3*/
+/*===========================================================*/
 const addItems = async () => {
 	await dataArray();
 	document.getElementById("items").innerHTML = kanapData

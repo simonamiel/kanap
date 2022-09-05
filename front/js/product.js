@@ -32,7 +32,10 @@ const productData = async () => {
 			};
 			//console.log(productInfo);
 			//console.log(data);
-		});
+		})
+		.catch((error) => {
+			alert("Le serveur ne répond pas veuillez réessayer ultérieurement")
+		});;
 };
 
 /*===========================================================*/
@@ -73,7 +76,9 @@ async function addProduct() {
 }
 addProduct();
 
+/*===========================================================*/
 /*Transmission of items to the basket whith button "ajouter au panier"*/
+/*===========================================================*/
 const addToCart = () => {
 	/*Add event on button click*/
 	document.getElementById("addToCart").addEventListener("click", () => {
@@ -92,10 +97,10 @@ const addToCart = () => {
 			let selectColor = document.getElementById("colors");
 			let selectQuantity = document.getElementById("quantity");
 			let idKanap = productInfo._id;
-			console.log(idKanap);
-			console.log(selectColor.value);
-			console.log(selectQuantity.value);
-			console.log(productArray);
+			//console.log(idKanap);
+			//console.log(selectColor.value);
+			//console.log(selectQuantity.value);
+			//console.log(productArray);
 
 			/*Assign info of user selection to a const*/
 			const addSelectedInfo = Object.assign({}, productInfo, {
