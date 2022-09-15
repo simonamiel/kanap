@@ -144,7 +144,7 @@ const addToCart = () => {
 						productArray[i].idProductSelection != idKanap
 					) {
 						return (
-							console.log("nouveau"),
+							//console.log("nouveau"),
 							productArray.push(addSelectedInfo),
 							localStorage.setItem("product", JSON.stringify(productArray)),
 							(productArray = JSON.parse(localStorage.getItem("product")))
